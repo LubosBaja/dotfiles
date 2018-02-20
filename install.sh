@@ -10,7 +10,7 @@ bkpDir=$HOME/.dotfiles-backup
 git clone --bare https://github.com/LubosBaja/dotfiles.git $dfDir
 
 function config{
-   /usr/bin/git --git-dir=$dfDir --work-tree=$HOME $@
+/usr/bin/git --git-dir=$dfDir --work-tree=$HOME $@
 }
 mkdir -p $bkpDir
 config checkout

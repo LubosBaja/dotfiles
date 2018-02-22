@@ -9,7 +9,7 @@ bkpDir=$HOME/.dotfiles-backup
 
 git clone --bare https://github.com/LubosBaja/dotfiles.git $dfDir
 
-function config{
+function config {
    /usr/bin/git --git-dir=$dfDir --work-tree=$HOME $@ 
 }
 mkdir -p $bkpDir
@@ -21,4 +21,4 @@ else
     config checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} mv {} $bkpDir/{}
 fi;
 config checkout
-    config config status.showUntrackedFiles no
+config config status.showUntrackedFiles no

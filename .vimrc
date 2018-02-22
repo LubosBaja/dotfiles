@@ -1,3 +1,4 @@
+" jen tak 
 syntax enable
 
 set backspace=indent,eol,start	"make backspace behave like every other editor
@@ -55,5 +56,6 @@ Plug 'junegunn/vim-plug'    "register vim-plug as plugin istelf for getting help
 Plug 'tpope/vim-vinegar'    "file manager
 Plug 'scrooloose/nerdtree'  "Project structure in split
 Plug 'jelera/vim-javascript-syntax'
+Plug 'w0rp/ale'             "Asynchronous lint engine
 call plug#end()
 

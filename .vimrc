@@ -35,6 +35,10 @@ nmap <A-1> NERDTreeToggle<cr>
 "------Mappings------"
 nmap <Leader>ev :tabedit $MYVIMRC<cr>
 
+"------ALE fixer------"
+let g:ale_fixers = {
+    \ 'javascript': ['eslint']
+    \}
 
 "------Auto-commands------"
 "Automatically source the Vimrc file on save
@@ -44,7 +48,7 @@ augroup autosourcing
 augroup END
 
 "------Plugins------"
-"Install plugin managere vim-plug if not already installed"
+"Install plugin manager vim-plug if not already installed"
 if empty(glob('~/.vim/autoload/plug.vim'))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -57,5 +61,18 @@ Plug 'tpope/vim-vinegar'    "file manager
 Plug 'scrooloose/nerdtree'  "Project structure in split
 Plug 'jelera/vim-javascript-syntax'
 Plug 'w0rp/ale'             "Asynchronous lint engine
+Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'XadillaX/json-formatter.vim'
+
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+let g:deoplete#enable_at_startup = 1
 call plug#end()
 

@@ -1,13 +1,13 @@
-" jen tak "
 syntax enable
 
 set backspace=indent,eol,start	"make backspace behave like every other editor
 let mapleader=',' 		"The default leader is \, but comma is my choice
 set number			"Let's activate line numbers
 set expandtab ts=4 sw=4 ai
+set autoread 
+set ttyfast
 
-"------Visuals------"
-
+"------Visuals------" 
 colorscheme atom-dark
 set termguicolors       "Use full 24-bit colors"
 if $COLORTERM == 'gnome-terminal'
@@ -16,6 +16,9 @@ endif
 set guifont=Ubuntu\ Mono\ 12
 set guioptions-=l,L,r,R
 
+set list " toggle invisible characters
+set listchars=tab:→\ ,eol:¬,trail:⋅,extends:❯,precedes:❮    " Display extra whitespace characters 
+set showbreak=↪
 
 "------Search------"
 set hlsearch
@@ -29,7 +32,7 @@ endif
 set undodir=$UNDODIR
 set undofile
  
-"------Split Management------"
+"------Split Management------" 
 set splitbelow
 set splitright
 nmap <C-J> <C-W><C-J>
@@ -37,11 +40,17 @@ nmap <C-K> <C-W><C-K>
 nmap <C-L> <C-W><C-L>
 nmap <C-H> <C-W><C-H>
 
-nmap <A-1> NERDTreeToggle<cr>
+nmap <Leader>k :NERDTreeToggle<cr>
 
 "------Mappings------"
-nmap <Leader>ev :tabedit $MYVIMRC<cr>
+nmap <Leader>ev :tabedit $MYVIMRC<cr>   " buffer switching
 nnoremap <Leader>b :ls<CR>:b<Space>
+map <Leader>bd :b#<bar>bd#<CR>
+nmap <C-B> :bn<cr>
+
+map <F2> :mksession! ~/vim_session <cr> " Quick write session with F2
+map <F3> :source ~/vim_session <cr>     " And load session with F3
+
 "------Auto-commands------"
 "Automatically source the Vimrc file on save
 augroup autosourcing
@@ -61,12 +70,12 @@ call plug#begin('~/.vim/plugins')
 Plug 'junegunn/vim-plug'    "register vim-plug as plugin istelf for getting help
 Plug 'tpope/vim-vinegar'    "file manager
 Plug 'scrooloose/nerdtree'  "Project structure in split
-Plug 'jelera/vim-javascript-syntax'
-Plug 'w0rp/ale'             "Asynchronous lint engine
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'XadillaX/json-formatter.vim'
+Plug 'vim-scripts/ctags.vim'              " ctags related stuff
+Plug 'majutsushi/tagbar'
+
 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -85,6 +94,14 @@ Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/gv.vim',                   { 'on': 'GV' }
 Plug 'jez/vim-github-hub'
 
+" Javascript
+Plug 'jelera/vim-javascript-syntax'
+Plug 'w0rp/ale'                             "Asynchronous lint engine
+Plug 'vim-scripts/npm.vim'                  " Node npm command integration
+
+" Json
+Plug 'XadillaX/json-formatter.vim'
+
 " HTML {{{4
 Plug 'othree/html5.vim',                  { 'for': 'html' }
 Plug 'mustache/vim-mustache-handlebars'
@@ -102,6 +119,7 @@ Plug 'godlygeek/tabular',                 { 'for': 'markdown' } " Needed for vim
 Plug 'plasticboy/vim-markdown',           { 'for': 'markdown' }
 
 Plug 'vim-scripts/vim-auto-save'          "Auto saving files
+Plug 'ryanoasis/vim-devicons'              " using dev icons from nerd fonts
 call plug#end()
 
 "------Plugin configuration------"

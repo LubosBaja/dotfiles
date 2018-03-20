@@ -3,6 +3,8 @@
 # install.sh 
 # This script clones the git repo of dotfiles and install them into home dir. 
 # In case some of the files exist it will backup the files into .dotfiles-backup directory.
+# from new machine use direct install with command
+# curl -Lks https://raw.githubusercontent.com/LubosBaja/dotfiles/master/install.sh | /bin/bash
 
 dfDir=$HOME/.dotfiles
 bkpDir=$HOME/.dotfiles-backup

@@ -4,6 +4,8 @@ set backspace=indent,eol,start	"make backspace behave like every other editor
 let mapleader=',' 		"The default leader is \, but comma is my choice
 set number			"Let's activate line numbers
 set expandtab ts=4 sw=4 ai
+set path+=**        "Let recursive path file search within vim
+set wildmenu        "tab through the filename when doing search
 set autoread 
 set ttyfast
 

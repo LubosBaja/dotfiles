@@ -75,7 +75,7 @@ endif
 
 call plug#begin('~/.vim/plugins')
 Plug 'junegunn/vim-plug'    "register vim-plug as plugin istelf for getting help
-Plug 'tpope/vim-vinegar'    "file manager
+"Plug 'tpope/vim-vinegar'    "file manager
 "Plug 'scrooloose/nerdtree'  "Project structure in split
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -94,6 +94,7 @@ endif
 
 Plug 'vim-airline/vim-airline'  "Status bar based on powerline, but no python needed
 Plug 'vim-airline/vim-airline-themes'
+Plug 'gosukiwi/vim-atom-dark' "Atom dark theme
 
 " Git
 Plug 'tpope/vim-fugitive'                 " Git stuff in Vim

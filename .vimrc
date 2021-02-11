@@ -1,16 +1,16 @@
 syntax enable
 
 set backspace=indent,eol,start	"make backspace behave like every other editor
-let mapleader=',' 		"The default leader is \, but comma is my choice
+"let mapleader=',' 		"The default leader is \, but comma is my choice
 set number			"Let's activate line numbers
 set expandtab ts=4 sw=4 ai
 set path+=**        "Let recursive path file search within vim
 set wildmenu        "tab through the filename when doing search
 set autoread 
 set ttyfast
+set diffopt+=vertical "Set vertical split as default for diff 
 
 "------Visuals------" 
-colorscheme atom-dark
 set termguicolors       "Use full 24-bit colors"
 if $COLORTERM == 'gnome-terminal'
     set t_Co=256        "Use 256 colors. This is for Terminal Vim..
@@ -53,11 +53,16 @@ nmap <C-B> :bn<cr>
 map <F2> :mksession! ~/vim_session <cr> " Quick write session with F2
 map <F3> :source ~/vim_session <cr>     " And load session with F3
 
+" Insert timestamp at the cursor by pressing <F5> or by typing @t in this format: 20200527T113245
+nnoremap <F5> "=strftime('%Y%m%dT%H%M%S')<CR>P
+inoremap <F5> <C-R>=strftime('%Y%m%dT%H%M%S')<CR>
+:iab <expr> @t strftime('%Y%m%dT%H%M%S')
+
 "------Auto-commands------"
 "Automatically source the Vimrc file on save
 augroup autosourcing
 	autocmd!
-	autocmd BufWritePost .vimrc source %
+	autocmd BufWritePost $MYVIMRC source $MYVIMRC | echom "Reloaded" $MYVIMRC
 augroup END
 
 "------Plugins------"
@@ -71,7 +76,7 @@ endif
 call plug#begin('~/.vim/plugins')
 Plug 'junegunn/vim-plug'    "register vim-plug as plugin istelf for getting help
 Plug 'tpope/vim-vinegar'    "file manager
-Plug 'scrooloose/nerdtree'  "Project structure in split
+"Plug 'scrooloose/nerdtree'  "Project structure in split
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -96,32 +101,42 @@ Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/gv.vim',                   { 'on': 'GV' }
 Plug 'jez/vim-github-hub'
 
+Plug 'sheerun/vim-polyglot' " Vim polyglot 
+
+" Python syntax checking
+Plug 'vim-syntastic/syntastic'
+
 " Javascript
-Plug 'jelera/vim-javascript-syntax'
-Plug 'w0rp/ale'                             "Asynchronous lint engine
-Plug 'vim-scripts/npm.vim'                  " Node npm command integration
+"Plug 'jelera/vim-javascript-syntax'
+"Plug 'w0rp/ale'                             "Asynchronous lint engine
+"Plug 'vim-scripts/npm.vim'                  " Node npm command integration
 
 " Json
-Plug 'XadillaX/json-formatter.vim'
+"Plug 'XadillaX/json-formatter.vim'
 
 " HTML {{{4
-Plug 'othree/html5.vim',                  { 'for': 'html' }
-Plug 'mustache/vim-mustache-handlebars'
-Plug 'mattn/emmet-vim'
+"Plug 'othree/html5.vim',                  { 'for': 'html' }
+"Plug 'mustache/vim-mustache-handlebars'
+"Plug 'mattn/emmet-vim'
 
  " CSS {{{4
-Plug 'hail2u/vim-css3-syntax',            { 'for': 'css' }
+"Plug 'hail2u/vim-css3-syntax',            { 'for': 'css' }
 
 " Sass {{{4
-Plug 'cakebaker/scss-syntax.vim'
+"Plug 'cakebaker/scss-syntax.vim'
 
 " Markdown {{{4
-Plug 'reedes/vim-pencil'                  " Markdown, Writing
-Plug 'godlygeek/tabular',                 { 'for': 'markdown' } " Needed for vim-markdown
-Plug 'plasticboy/vim-markdown',           { 'for': 'markdown' }
+"Plug 'reedes/vim-pencil'                  " Markdown, Writing
+"Plug 'godlygeek/tabular',                 { 'for': 'markdown' } " Needed for vim-markdown
+"Plug 'plasticboy/vim-markdown',           { 'for': 'markdown' }
 
 Plug 'vim-scripts/vim-auto-save'          "Auto saving files
 Plug 'ryanoasis/vim-devicons'              " using dev icons from nerd fonts
+
+Plug 'jceb/vim-orgmode' 
+Plug 'tpope/vim-speeddating'
+Plug 'mattn/calendar-vim'
+
 call plug#end()
 
 "------Plugin configuration------"
@@ -144,6 +159,18 @@ let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline_powerline_fonts = 1
 
+let g:airline#extensions#syntastic#enabled = 1
+
+"Syntastic setup
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+"
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+
 "Auto save
 let g:auto_save = 1                                 "Enable AutoSave on Vim startup
 let g:auto_save_no_updatetime = 1                   " do not change the 'updatetime' option
@@ -153,3 +180,6 @@ let g:auto_save_in_insert_mode = 0                  " do not save while in inser
 
 "vim markdown config
 let g:vim_markdown_folding_disabled = 1             " disable folding
+
+colorscheme atom-dark
+
